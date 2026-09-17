@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090b0c">
+  <title>아임 낫 어 휴먼</title>
+  <link rel="icon" href="/static/assets/app-icon.png?v=20260915">
+  <link rel="stylesheet" href="/static/styles.css?v=20260915.2">
+</head>
+<body>
+  <main id="app">
+    <section id="authScreen" class="screen auth-screen">
+      <div class="brand-lockup">
+        <p class="eyebrow">HUMAN VERIFICATION PROTOCOL</p>
+        <h1>아임 낫 어 휴먼</h1>
+        <p>I'm not a human</p>
+      </div>
+      <div class="auth-panel">
+        <div class="auth-tabs" role="tablist">
+          <button id="loginTab" class="active" type="button">로그인</button>
+          <button id="registerTab" type="button">계정 생성</button>
+        </div>
+        <form id="authForm" autocomplete="on">
+          <label id="nicknameLabel" hidden><span>닉네임</span><div class="field-action"><input id="nickname" name="nickname" minlength="2" maxlength="12" autocomplete="nickname"><button id="checkNickname" class="secondary" type="button">중복 확인</button></div><small id="nicknameStatus" class="field-status" aria-live="polite"></small></label>
+          <label>개체 ID<input id="username" name="username" minlength="3" maxlength="20" autocomplete="username" required></label>
+          <label>접근 암호<input id="password" name="password" type="password" minlength="10" maxlength="128" autocomplete="current-password" required></label>
+          <label id="passwordConfirmLabel" hidden>접근 암호 확인<input id="passwordConfirm" name="passwordConfirm" type="password" minlength="10" maxlength="128" autocomplete="new-password"></label>
+          <p id="authError" class="form-error" aria-live="polite"></p>
+          <button id="authSubmit" class="primary wide" type="submit">검증 시작</button>
+        </form>
+        <a class="privacy-link" href="/privacy">개인정보 처리 안내</a>
+      </div>
+      <p class="auth-status"><span></span> 중앙 통제망 연결됨</p>
+    </section>
+
+    <section id="guideScreen" class="screen guide-screen" hidden>
+      <div class="guide-shade"></div>
+      <div class="guide-dialog">
+        <div class="guide-identity"><span class="ai-eye"></span><div><strong id="guideSpeaker"></strong><small>비인가 생존 지원 개체</small></div></div>
+        <div class="guide-progress"><span id="guideProgress"></span></div>
+        <p id="guideText" class="guide-text"></p>
+        <div id="guideChoices" class="guide-choices"></div>
+        <p id="guideReply" class="guide-reply" aria-live="polite"></p>
+        <button id="guideNext" class="primary" type="button" hidden>계속</button>
+      </div>
+    </section>
+
+    <section id="cinematicScreen" class="screen cinematic-screen" hidden>
+      <div id="cinematicBackdrop" class="cinematic-backdrop"></div>
+      <div class="cinematic-shade"></div>
+      <header class="cinematic-header"><span id="cinematicCode"></span><button id="skipCinematic" class="quiet" type="button">SKIP</button></header>
+      <div id="cinematicCopy" class="cinematic-copy"><p id="cinematicEyebrow" class="eyebrow"></p><h2 id="cinematicTitle"></h2><p id="cinematicText"></p></div>
+      <footer class="cinematic-footer"><div id="cinematicDots" class="cinematic-dots"></div><button id="nextCinematic" type="button">다음 장면</button></footer>
+    </section>
+
+    <section id="lobbyScreen" class="screen lobby-screen" hidden>
+      <header class="lobby-header">
+        <div><p class="eyebrow">SURVIVOR NETWORK</p><h2>생존 경로 선택</h2></div>
+        <div class="header-actions"><span id="accountName"></span><button id="historyButton" class="quiet" type="button">프로필</button><button id="rankingButton" class="quiet" type="button">랭킹</button><button id="accountButton" class="quiet" type="button">계정</button><button id="logoutButton" class="quiet" type="button">로그아웃</button></div>
+      </header>
+      <div class="lobby-body">
+        <section class="scenario-section">
+          <div class="section-title"><div class="title-with-help"><h3>7일 검증 시나리오</h3><button id="gameHelp" class="help-dot" type="button" title="게임 방법" aria-label="게임 방법">?</button></div></div>
+          <div id="resumeBanner" class="resume-banner" hidden><div><strong>저장된 검증 기록</strong><span id="resumeMeta"></span></div><div class="resume-actions"><button id="resumeButton" class="primary" type="button">이어하기</button><button id="deleteSave" class="quiet" type="button">삭제</button></div></div>
+          <div id="scenarioGrid" class="scenario-grid"></div>
+        </section>
+      </div>
+      <p id="lobbyError" class="floating-error" aria-live="polite"></p>
+    </section>
+
+    <section id="rankingScreen" class="screen ranking-screen" hidden>
+      <header class="ranking-header"><button id="closeRanking" class="icon-button" type="button" title="기록 닫기">←</button><div><p id="recordsEyebrow" class="eyebrow">SURVIVAL RECORDS</p><h2 id="recordsTitle">생존자 랭킹</h2><p id="profileNickname" class="profile-nickname" hidden></p></div><div id="historySummary" class="history-summary" hidden></div></header>
+      <div class="ranking-layout">
+        <section class="ranking-board"><p id="recordsNote" class="records-note"></p><div id="rankingFilters" class="ranking-filters"></div><div class="ranking-head"><span id="recordPositionLabel">순위</span><span id="recordPlayerLabel">생존자</span><span>기록</span><span>점수</span></div><div id="rankingList" class="ranking-list"></div></section>
+        <aside class="score-rules"><p class="eyebrow">SCORING</p><h3>점수 산정</h3><div id="scoreRules"></div></aside>
+      </div>
+    </section>
+
+    <section id="waitingScreen" class="screen waiting-screen" hidden>
+      <div class="waiting-panel">
+        <p class="eyebrow">ENCRYPTED ROOM</p>
+        <h2>방 코드 <button id="copyCode" class="room-code" type="button" title="방 코드 복사"></button></h2>
+        <p id="waitingScenario"></p>
+        <div id="waitingRoster" class="waiting-roster"></div>
+        <div class="waiting-actions"><button id="leaveRoom" class="quiet" type="button">나가기</button><button id="copyLink" class="secondary" type="button">초대 링크 복사</button><button id="startRoom" class="primary" type="button">검증 시작</button></div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen" hidden>
+      <div id="gameBackdrop" class="game-backdrop"></div>
+      <header class="game-header">
+        <div class="day-mark"><span id="dayLabel">DAY 1</span><strong id="storyTitle"></strong></div>
+        <div id="phaseLabel" class="phase-label">토론</div>
+        <div class="timer"><span id="timerLabel">02:00</span><button id="exitGame" class="icon-button exit-button" title="게임 나가기" aria-label="게임 나가기" type="button">⇥</button></div>
+      </header>
+      <div class="game-layout">
+        <aside class="task-panel">
+          <p class="eyebrow">TODAY'S TEST</p>
+          <h2 id="taskTitle"></h2>
+          <p id="taskContext"></p>
+          <div class="machine-hint"><span>기계적 답변 기준</span><p id="taskHint"></p></div>
+          <div class="starter-prompt"><span id="difficultyLabel"></span><p id="taskStarter"></p></div>
+          <div class="task-status"><div class="risk-meter"><span>내 검사 압력</span><strong id="riskLabel">낮음</strong></div></div>
+        </aside>
+        <section class="discussion-panel">
+          <div id="systemBanner" class="system-banner"></div>
+          <div id="chatLog" class="chat-log" aria-live="polite"></div>
+          <div id="actionDock" class="action-dock"></div>
+        </section>
+        <aside class="roster-panel"><div class="roster-title"><span>생존 개체</span><small id="roomLabel"></small></div><div id="gameRoster" class="game-roster"></div></aside>
+      </div>
+    </section>
+  </main>
+  <div id="infoModal" class="ending-modal" hidden>
+    <div class="ending-card info-card">
+      <p class="eyebrow" id="infoEyebrow"></p>
+      <h2 id="infoTitle"></h2>
+      <div id="infoBody" class="info-body"></div>
+      <button id="infoClose" class="quiet wide" type="button">닫기</button>
+    </div>
+  </div>
+  <div id="duoModal" class="ending-modal" hidden>
+    <div class="ending-card">
+      <p class="eyebrow">DUO INFILTRATION</p>
+      <h2 id="duoTitle"></h2>
+      <p>사람 2명이 한 조로 잠입합니다. 검증이 시작되면 AI가 합류해 8자리를 채웁니다.</p>
+      <div class="duo-section"><strong>방 만들기</strong><div class="duo-create"><input id="duoPassword" type="password" maxlength="20" placeholder="비밀방 비밀번호 — 비우면 공개방" autocomplete="new-password" data-1p-ignore data-lpignore="true"><button id="duoCreate" class="primary" type="button">개설</button></div><label class="duo-check"><input id="duoHideIds" type="checkbox"><span>상대방에게 ID 보이지 않기</span></label></div>
+      <div class="duo-section"><div class="open-title"><strong>열려 있는 방</strong><button id="refreshRooms" class="icon-button" title="방 목록 새로고침" type="button">↻</button></div><div id="roomList"></div></div>
+      <div class="duo-section"><strong>초대 코드로 입장</strong><form id="joinForm" class="duo-join" autocomplete="off" data-form-type="other"><input id="roomCode" name="room-invite-code" maxlength="4" placeholder="ABCD" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" data-1p-ignore data-lpignore="true"><button class="secondary" type="submit">입장</button></form></div>
+      <button id="duoClose" class="quiet wide" type="button">닫기</button>
+    </div>
+  </div>
+  <div id="exitModal" class="ending-modal" hidden>
+    <div class="ending-card">
+      <p class="eyebrow">PAUSE PROTOCOL</p>
+      <h2>검증을 중단할까요?</h2>
+      <p>저장하면 로비에서 이어할 수 있습니다. 방을 종료하면 이번 진행은 기록 없이 사라집니다.</p>
+      <div class="exit-actions"><button id="exitSave" class="primary wide" type="button">저장하고 나가기</button><button id="exitClose" class="secondary wide" type="button">방 종료</button><button id="exitCancel" class="quiet wide" type="button">계속하기</button></div>
+    </div>
+  </div>
+  <div id="endingModal" class="ending-modal" hidden>
+    <div class="ending-card">
+      <p class="eyebrow">VERIFICATION COMPLETE</p>
+      <h2 id="endingTitle"></h2>
+      <p id="endingText"></p>
+      <div id="endingRows" class="ending-rows"></div>
+      <div class="ending-total"><span>최종 점수</span><strong id="endingTotal"></strong></div>
+      <div id="endingReport" class="ending-report" hidden></div>
+      <button id="endingLeave" class="primary wide" type="button">나가기</button>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="/static/app.js?v=20260915.2"></script>
+</body>
+</html>

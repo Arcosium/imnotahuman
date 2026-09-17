@@ -1,0 +1,13 @@
+.env
+.venv/
+data
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+artifacts/
+mobile/.gradle/
+mobile/local.properties
+mobile/app/build/
+*.apk
+onestore-assets/private/

@@ -1,0 +1,36 @@
+[project]
+name = "im-not-a-human"
+version = "0.1.0"
+description = "AI social deduction survival game"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi==0.116.1",
+  "httpx==0.28.1",
+  "pydantic==2.11.7",
+  "uvicorn[standard]==0.35.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==8.4.1",
+  "pytest-asyncio==1.1.0",
+  "ruff==0.12.8",
+]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["im_not_a_human"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

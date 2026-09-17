@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090b0c">
+  <title>개인정보 처리 안내 · 아임 낫 어 휴먼</title>
+  <link rel="icon" href="/static/assets/app-icon.png?v=20260915">
+  <style>
+    :root{color-scheme:dark;font-family:"Noto Sans KR",system-ui,sans-serif;background:#090b0c;color:#f3f5f4}
+    *{box-sizing:border-box}body{margin:0;padding:32px 22px 60px;line-height:1.8;word-break:keep-all;overflow-wrap:break-word}
+    main{max-width:720px;margin:auto}header{padding-bottom:24px;border-bottom:1px solid #353a3a}h1{font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.4;margin:18px 0 8px}
+    h2{font-size:1.15rem;margin:30px 0 8px}p{margin:8px 0;color:#c9cfcc}small{color:#a8afb0}a{color:#e5ad4f;text-underline-offset:4px}.back{display:inline-flex;min-height:44px;align-items:center}
+    a:focus-visible{outline:2px solid #e5ad4f;outline-offset:4px}footer{margin-top:32px;padding-top:20px;border-top:1px solid #353a3a}
+  </style>
+</head>
+<body><main>
+  <header><a class="back" href="/">← 게임으로 돌아가기</a><h1>개인정보 처리 안내</h1><small>아임 낫 어 휴먼 · 시행일 2026년 9월 15일</small></header>
+  <section><h2>계정과 게임 기록</h2><p>계정을 만들면 개체 ID, 닉네임, 비밀번호의 해시값, 가입일과 최근 로그인 시각을 저장합니다. 비밀번호 원문은 저장하지 않습니다. 로그인 유지와 요청 검증을 위해 세션 쿠키와 브라우저 정보의 해시값을 사용하며 세션은 7일 뒤 만료됩니다.</p><p>게임이 끝나면 시나리오, 점수, 생존 일수, 플레이 시간과 점수 산정 내역을 계정에 연결해 저장합니다. 내 전적과 랭킹을 제공하기 위한 기록입니다. 랭킹에는 닉네임과 게임 결과가 다른 이용자에게 표시됩니다.</p></section>
+  <section><h2>대화와 저장한 게임</h2><p>게임 중 입력한 발언은 같은 방의 참가자에게 전달되고, 운영 서버의 AI가 대화와 투표·판결을 만드는 데 사용합니다. 진행 중 대화는 방의 메모리에서 처리합니다. 솔로 게임을 저장하면 이어하기에 필요한 발언, 선택, 투표, 판정 기록도 서버에 저장합니다.</p><p>작성 중인 발언은 새로고침 뒤 복원할 수 있도록 브라우저의 세션 저장소에 임시 보관됩니다. 채팅에 실명, 연락처, 주소, 비밀번호 등 개인정보를 입력하지 마세요.</p></section>
+  <section><h2>보관과 삭제</h2><p>계정과 전적은 계정을 삭제할 때까지 보관합니다. 저장한 솔로 게임은 로비의 저장 기록 삭제 기능으로 지울 수 있습니다. 서버에서 방을 종료하면 해당 방의 진행 중 대화는 더 이상 게임에 사용되지 않습니다.</p><p>계정 삭제는 로그인 후 로비의 ‘계정’에서 현재 접근 암호를 입력해 요청할 수 있습니다. 진행 중인 게임이나 대기실을 먼저 종료해야 합니다. 삭제하면 계정, 로그인 세션, 저장 게임, 전적과 랭킹 기록이 운영 데이터베이스에서 삭제되며 복구할 수 없습니다.</p></section>
+  <section><h2>전송과 접근 권한</h2><p>정식 서비스는 HTTPS로 통신하며 AI 응답은 운영자의 서버에서 생성합니다. 광고·분석 SDK를 사용하지 않고 광고 식별자, 연락처, 사진, 위치, 마이크 정보에 접근하지 않습니다. Android 앱은 서비스 연결과 연결 상태 확인을 위한 인터넷 권한만 사용합니다.</p><p>듀오 참가자는 같은 방의 대화와 대기실 닉네임을 볼 수 있습니다. 게임이 시작되면 대기실 닉네임 대신 게임 속 개체명이 표시됩니다. 랭킹 공개와 듀오 대화에 필요한 범위를 제외한 계정 정보를 다른 이용자에게 제공하지 않습니다.</p></section>
+  <section><h2>연결 중계와 국외 처리</h2><p>서비스 접속은 Cloudflare, Inc.의 연결 중계망을 거칩니다. Cloudflare는 연결 제공, 보안과 장애 대응을 위해 IP 주소, 브라우저·기기 정보, 접속 시각과 경로, 네트워크 오류 정보와 전송되는 콘텐츠를 처리합니다. 이 과정에서 미국 등 Cloudflare 운영 국가의 서버가 사용될 수 있습니다.</p><p>Cloudflare의 처리 범위와 보관 기준은 <a href="https://www.cloudflare.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Cloudflare 개인정보 처리방침</a>에서 확인할 수 있습니다. 게임의 AI 응답은 운영 서버에서 생성하며 별도 외부 AI API로 대화를 보내지 않습니다.</p></section>
+  <footer><h2>문의</h2><p>개인정보 열람·정정·삭제와 서비스 문의는 원스토어 상품 페이지에 표시된 개발자 연락처로 요청해 주세요. 이 안내를 바꾸면 시행일과 변경 내용을 서비스에서 알립니다.</p><a class="back" href="/">게임으로 돌아가기</a></footer>
+</main></body></html>
