@@ -373,7 +373,7 @@ class LocalNarrator:
                     if self._repeats_question(text, history_texts or []):
                         continue
                     return text
-        except (httpx.HTTPError, KeyError, IndexError, TypeError, json.JSONDecodeError) as exc:
+        except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError) as exc:
             LOG.warning("local model fallback (%s): %r", type(exc).__name__, exc)
         return self._fallback(
             day=day,
@@ -496,7 +496,7 @@ class LocalNarrator:
                     temperature=0.4,
                     max_tokens=90,
                 )
-        except (httpx.HTTPError, KeyError, IndexError, TypeError, json.JSONDecodeError):
+        except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError):
             return None
         if re.search(r"지목\s*[:：]\s*보류|^보류", text):
             return None
@@ -584,7 +584,7 @@ class LocalNarrator:
                     temperature=0.35,
                     max_tokens=70,
                 )
-        except (httpx.HTTPError, KeyError, IndexError, TypeError, json.JSONDecodeError):
+        except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError):
             return None
         reason_match = re.search(r"이유\s*[:：]\s*(.+)", text)
         reason = reason_match.group(1) if reason_match else ""
@@ -640,12 +640,18 @@ class LocalNarrator:
                 ],
                 "temperature": temperature,
                 "max_tokens": max_tokens,
-                "thinking": False,
+                "top_p": 0.8,
+                "top_k": 20,
                 "chat_template_kwargs": {"enable_thinking": False},
             },
         )
         response.raise_for_status()
-        text = response.json()["choices"][0]["message"]["content"].strip()
+        choice = response.json()["choices"][0]
+        if choice.get("finish_reason") == "length":
+            raise ValueError("local narration exceeded its output budget")
+        text = (choice["message"].get("content") or "").strip()
+        if not text:
+            raise ValueError("local narration returned empty content")
         return text.replace("<think>", "").replace("</think>", "").strip(' "\n')
 
     @staticmethod

@@ -11,7 +11,7 @@ class Settings:
         os.getenv("INH_DATABASE_PATH", "/home/arcosium/vault/im-not-a-human/game.db")
     )
     local_model_url: str = os.getenv("INH_LOCAL_MODEL_URL", "http://127.0.0.1:11434/v1")
-    local_model: str = os.getenv("INH_LOCAL_MODEL", "qwen3.6-35b-a3b-uncensored")
+    local_model: str = os.getenv("INH_LOCAL_MODEL", "arc-local")
     cookie_secure: bool = os.getenv("INH_COOKIE_SECURE", "false").lower() == "true"
     discussion_seconds: int = int(os.getenv("INH_DISCUSSION_SECONDS", "210"))
     decision_seconds: int = int(os.getenv("INH_DECISION_SECONDS", "25"))
